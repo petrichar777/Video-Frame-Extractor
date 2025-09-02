@@ -1,0 +1,22 @@
+# Java
+/target/
+*.jar
+*.war
+*.zip
+*.class
+
+# IDE
+.DS_Store
+.idea/
+*.iml
+*.swp
+*~
+
+# Logs
+logs
+*.log
+# 忽略 Maven 构建输出
+Backend/target/
+Backend/*.jar
+Backend/*.war
+Backend/*.zip
