@@ -1,0 +1,68 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+  # 连接超时配置
+  tomcat:
+    connection-timeout: 300000  # 5分钟连接超时
+    max-connections: 200
+    max-threads: 100
+    accept-count: 100
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 1GB
+      max-request-size: 1GB
+      enabled: true
+      # 文件上传临时目录
+      location: ${java.io.tmpdir}
+  application:
+    name: video-frame-extractor
+  # 异步处理配置
+  task:
+    execution:
+      pool:
+        core-size: 4
+        max-size: 20
+        queue-capacity: 100
+      thread-name-prefix: video-task-
+
+logging:
+  level:
+    com.videoprocessor: INFO
+    org.bytedeco: WARN
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+# 视频处理配置
+video:
+  processor:
+    # 临时文件存储目录
+    temp-dir: ${java.io.tmpdir}/video-processor
+    # 最大处理时长（秒）- 增加到10分钟适应大文件
+    max-duration: 600
+    # 支持的视频格式
+    supported-formats: mp4,avi,mov,mkv,wmv,flv,webm
+    # 默认输出图片格式
+    output-format: jpg
+    # 默认图片质量（0-100）
+    image-quality: 85
+    # 性能优化配置
+    performance:
+      # 并行处理线程数
+      thread-pool-size: 4
+      # 内存缓冲区大小（MB）
+      buffer-size: 64
+      # 批处理大小
+      batch-size: 10
+      # 启用GPU加速（如果可用）
+      gpu-acceleration: false
+    # 大文件处理优化
+    large-file:
+      # 大文件阈值（MB）
+      threshold: 100
+      # 分块处理大小（秒）
+      chunk-duration: 30
+      # 启用流式处理
+      streaming: true

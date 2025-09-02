@@ -1,0 +1,9 @@
+com\videoprocessor\config\GlobalExceptionHandler.class
+com\videoprocessor\VideoFrameExtractorApplication.class
+com\videoprocessor\model\FrameExtractionResponse.class
+com\videoprocessor\controller\VideoProcessorController.class
+com\videoprocessor\config\WebConfig.class
+com\videoprocessor\service\VideoProcessorService.class
+com\videoprocessor\model\VideoInfo.class
+com\videoprocessor\model\FrameExtractionResponse$FrameData.class
+com\videoprocessor\model\FrameExtractionRequest.class

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频帧提取器</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>视频帧提取器</h1>
+        
+        <!-- 服务状态检查 -->
+        <div class="section">
+            <h2>服务状态</h2>
+            <button id="checkHealth" class="btn">检查服务状态</button>
+            <div id="healthStatus" class="status"></div>
+        </div>
+
+        <!-- 支持格式查询 -->
+        <div class="section">
+            <h2>支持的格式</h2>
+            <button id="getSupportedFormats" class="btn">获取支持格式</button>
+            <div id="supportedFormats" class="info"></div>
+        </div>
+
+        <!-- 视频信息获取 -->
+        <div class="section">
+            <h2>获取视频信息</h2>
+            <div class="form-group">
+                <label for="videoInfoFile">选择视频文件:</label>
+                <input type="file" id="videoInfoFile" accept="video/*" class="file-input">
+            </div>
+            <button id="getVideoInfo" class="btn">获取视频信息</button>
+            <div id="videoInfoResult" class="result"></div>
+        </div>
+
+        <!-- 视频帧提取 -->
+        <div class="section">
+            <h2>提取视频帧</h2>
+            <div class="form-group">
+                <label for="videoFile">选择视频文件:</label>
+                <input type="file" id="videoFile" accept="video/*" class="file-input">
+            </div>
+            
+            <div class="form-group">
+                <label for="intervalSeconds">提取间隔（秒）:</label>
+                <input type="number" id="intervalSeconds" placeholder="不填则提取所有帧" min="1" class="input">
+            </div>
+            
+            <div class="form-group">
+                <label for="startTimeSeconds">开始时间（秒）:</label>
+                <input type="number" id="startTimeSeconds" placeholder="默认0" min="0" value="0" class="input">
+            </div>
+            
+            <div class="form-group">
+                <label for="endTimeSeconds">结束时间（秒）:</label>
+                <input type="number" id="endTimeSeconds" placeholder="不填则到视频结束" min="0" class="input">
+            </div>
+            
+            <div class="form-group">
+                <label for="outputFormat">输出格式:</label>
+                <select id="outputFormat" class="select">
+                    <option value="jpg">JPG</option>
+                    <option value="png">PNG</option>
+                    <option value="bmp">BMP</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="imageQuality">图片质量（1-100）:</label>
+                <input type="number" id="imageQuality" min="1" max="100" value="85" class="input">
+            </div>
+            
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="returnBase64" checked>
+                    返回Base64编码
+                </label>
+            </div>
+            
+            <button id="extractFrames" class="btn btn-primary">提取视频帧（完整信息）</button>
+            <button id="extractFramesBase64Only" class="btn btn-primary">提取视频帧（仅Base64）</button>
+            <div id="extractProgress" class="progress"></div>
+        </div>
+
+        <!-- JSON格式生成 -->
+        <div class="section">
+            <h2>生成JSON格式（每秒一帧）</h2>
+            <div class="form-group">
+                <label for="jsonVideoFile">选择视频文件:</label>
+                <input type="file" id="jsonVideoFile" accept="video/*" class="file-input">
+            </div>
+            
+            <div class="form-group">
+                <label for="promptText">提示词内容:</label>
+                <input type="text" id="promptText" placeholder="请描述这些图片的内容" value="请描述这些图片的内容" class="input">
+            </div>
+            
+            <button id="generateJsonFormat" class="btn btn-primary">生成JSON格式</button>
+            <div id="jsonProgress" class="progress"></div>
+            
+            <div id="jsonResult" class="result"></div>
+            <div id="jsonOutput" class="json-output">
+                <div class="json-header">
+                    <h3>生成的JSON格式</h3>
+                    <button id="copyJsonButton" class="btn btn-small" style="display:none;">复制JSON</button>
+                </div>
+                <pre id="jsonContent" class="json-display"></pre>
+            </div>
+        </div>
+
+        <!-- 结果展示 -->
+        <div class="section">
+            <h2>提取结果</h2>
+            <div id="extractResult" class="result"></div>
+            <div id="framesContainer" class="frames-container"></div>
+        </div>
+
+        <!-- 快速测试区域 -->
+        <div class="section">
+            <h2>快速测试</h2>
+            <div class="quick-test">
+                <button id="quickTest1" class="btn btn-small">测试：每5秒提取一帧</button>
+                <button id="quickTest2" class="btn btn-small">测试：前30秒每2秒一帧</button>
+                <button id="quickTest3" class="btn btn-small">测试：提取所有帧</button>
+            </div>
+        </div>
+
+        <!-- 日志区域 -->
+        <div class="section">
+            <h2>操作日志</h2>
+            <div id="logContainer" class="log-container"></div>
+            <button id="clearLog" class="btn btn-small">清空日志</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
